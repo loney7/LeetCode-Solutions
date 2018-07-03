@@ -1,0 +1,33 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void traverseTree(TreeNode * root, int &minDepth, int level) {
+        if(root == NULL) {
+            return; 
+        }
+        if(root ->left == NULL && root->right == NULL) {
+            // this means it is a leaf node
+            minDepth = min(minDepth, level);
+            return;
+        }
+        traverseTree(root->left, minDepth, level + 1);
+        traverseTree(root->right, minDepth, level + 1);
+        
+    }  
+    int minDepth(TreeNode* root) {
+        int minDepth = INT_MAX;
+        if(root == NULL) {
+            return 0;
+        }
+        traverseTree(root, minDepth, 1);
+        return minDepth;
+    }
+};
